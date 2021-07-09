@@ -14,13 +14,17 @@ const coins = [
   "XRPUSDT",
 ];
 
+const datos = []
 
-const agregarEnTemplate = (e) => {
+const agregarEnTemplate = (e,i) => {
      const ul = document.querySelector("#tabla");
-     const template = `<tr><td>${e.symbol} </td><td> ${cortarPrecio(e.markPrice)} </td> <td> ${cortarPrecio(e.indexPrice)}</td><td> ${tasaDeinteres(e)}</td><td> ${cortarDias(toExpiracy(expDay(e.symbol)))}</td><td> ${cortarPrecio(TNA(e))}</td></tr>`
+     const template = `<tr><td>${e.symbol}</td><td> ${cortarPrecio(e.markPrice)}</td><td>${cortarPrecio(e.indexPrice)}</td><td> ${tasaDeinteres(e)}</td><td> ${cortarDias(toExpiracy(expDay(e.symbol)))}</td><td> ${cortarPrecio(TNA(e))}</td></tr>`
      ul.innerHTML += template;
 }   
 
+function subirDatos(e){
+  datos.push([e.symbol,cortarPrecio(e.markPrice),cortarPrecio(e.indexPrice),tasaDeinteres(e),cortarDias(toExpiracy(expDay(e.symbol))),cortarPrecio(TNA(e)) ])
+}
 
 
 function expDay(str){
@@ -67,11 +71,40 @@ window.onload = () => {
       .then( res => res.filter(e=>e.nextFundingTime==0).sort((a,b)=>{
         if(a.symbol>b.symbol) return 1
         else return -1
-      }).forEach(e=>agregarEnTemplate(e)))
+      }).forEach(e=>{
+        agregarEnTemplate(e)
+        subirDatos(e)
+      }))
+
 
     document.querySelector("#refresh").addEventListener("click", ()=> {
       location.href="./index.html"
     })
 
+    document.querySelector("#TNA").addEventListener("click",()=>{
+      datos.sort((a,b)=>{
+        if(a[5]>b[5]) return -1
+        else return 1
+      })
+      const tr= document.querySelectorAll("tr")
+      let trDatos=[]
+      for(i=1;i<tr.length;i++){
+        trDatos.push(tr.item(i))
+      }
+      trDatos.forEach((e,i)=>e.innerHTML= `<td>${datos[i][0]}</td><td> ${datos[i][1]}</td><td>${datos[i][2]}</td><td> ${datos[i][3]}</td><td> ${datos[i][4]}</td><td> ${datos[i][5]}</td>`)
+    })
+
+    document.querySelector("#tasaRealizada").addEventListener("click",()=>{
+      datos.sort((a,b)=>{
+        if(a[3]>b[3]) return -1
+        else return 1
+      })
+      const tr= document.querySelectorAll("tr")
+      let trDatos=[]
+      for(i=1;i<tr.length;i++){
+        trDatos.push(tr.item(i))
+      }
+      trDatos.forEach((e,i)=>e.innerHTML= `<td>${datos[i][0]}</td><td> ${datos[i][1]}</td><td>${datos[i][2]}</td><td> ${datos[i][3]}</td><td> ${datos[i][4]}</td><td> ${datos[i][5]}</td>`)
+    })
 
 }
