@@ -9,6 +9,10 @@ h1{
     padding: 40px;
 }
 
+h2{
+    text-align: center;
+}
+
 ul{
     display: flex;
     flex-direction: row;
@@ -52,5 +56,5 @@ div.columna div{
 footer{
     text-align: center;
     margin-top: 30px;
-    
+
 }

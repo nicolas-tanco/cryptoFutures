@@ -10,23 +10,22 @@
 <body>
 <header>
     <h1>Crypto Data</h1>
-    <nav><ul><li><a href="./marketData.html"> Spot Data</a></li>
-    <li>Coin M Data</li>
+    <nav><ul><li> Spot Data</li>
+    <li><a href="./index.html">Coin M Data</a></li>
     <li>USDT M Data</li>
     <li>Savings</li></ul></nav>
 </header>
 <main>
-    <h2>Coin-M Futures</h2>
+    <h2>Spot Data</h2>
  <div class="container">
 
        <div id="tabla">
-       <div class="columna"><div>Symbol</div><div>Price</div><div>Index</div><div>Tasa realizada</div><div>Dias</div><div>TNA</div></div >
+       <div class="columna"><div>Symbol</div><div>Ask Price</div><div>Bid Price</div></div>
        </div>
     
 <div class="botones">
 <button id="refresh">Refresh</button>
-<button id="TNA">TNA sort</button>
-<button id="tasaRealizada">Tasa realizada sort</button>
+<button id="priceSort">TNA sort</button>
 <button id="nameSort">Name sort</button>
 </div>
 <form action="" method="get" name="formRequest">
@@ -38,6 +37,6 @@
 </div>
 </main>
 <footer><p>Made by Nicolas Tanco</p></footer>
-<script src="./binance.js"></script>
+<script src="./marketData.js"></script>
 </body>
 </html>
