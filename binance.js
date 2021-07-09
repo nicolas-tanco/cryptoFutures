@@ -38,12 +38,13 @@ window.onload = () => {
         if(a[5]>b[5]) return -1
         else return 1
       })
-      const tr= document.querySelectorAll("tr")
+      const tr= document.querySelectorAll("div.columna")
       let trDatos=[]
       for(i=1;i<tr.length;i++){
         trDatos.push(tr.item(i))
       }
-      trDatos.forEach((e,i)=>e.innerHTML= `<td>${datos[i][0]}</td><td> ${datos[i][1]}</td><td>${datos[i][2]}</td><td> ${datos[i][3]}</td><td> ${datos[i][4]}</td><td> ${datos[i][5]}</td>`)
+      trDatos.forEach((e,i)=>e.innerHTML= `<div>${datos[i][0]}</div><div>${datos[i][1]}</div><div>${datos[i][2]}</div><div>${datos[i][3]}</div><div>${datos[i][4]}</div><div>${datos[i][5]}</div>`
+     )
     })
 
     document.querySelector("#tasaRealizada").addEventListener("click",()=>{
@@ -51,12 +52,12 @@ window.onload = () => {
         if(a[3]>b[3]) return -1
         else return 1
       })
-      const tr= document.querySelectorAll("tr")
+      const tr= document.querySelectorAll("div.columna")
       let trDatos=[]
       for(i=1;i<tr.length;i++){
         trDatos.push(tr.item(i))
       }
-      trDatos.forEach((e,i)=>e.innerHTML= `<td>${datos[i][0]}</td><td> ${datos[i][1]}</td><td>${datos[i][2]}</td><td> ${datos[i][3]}</td><td> ${datos[i][4]}</td><td> ${datos[i][5]}</td>`)
+      trDatos.forEach((e,i)=>e.innerHTML= `<div>${datos[i][0]}</div><div>${datos[i][1]}</div><div>${datos[i][2]}</div><div>${datos[i][3]}</div><div>${datos[i][4]}</div><div>${datos[i][5]}</div>`)
     })
 
     document.forms.formRequest.addEventListener("submit", (e)=>{
@@ -81,7 +82,7 @@ const datos = []
 
 const agregarEnTemplate = (e,i) => {
      const ul = document.querySelector("#tabla");
-     const template = `<tr><td>${e.symbol}</td><td> ${cortarPrecio(e.markPrice)}</td><td>${cortarPrecio(e.indexPrice)}</td><td> ${tasaDeinteres(e)}</td><td> ${cortarDias(toExpiracy(expDay(e.symbol)))}</td><td> ${cortarPrecio(TNA(e))}</td></tr>`
+     const template = `<div class="columna"><div>${e.symbol}</div><div>${cortarPrecio(e.markPrice)}</div><div>${cortarPrecio(e.indexPrice)}</div><div>${tasaDeinteres(e)}</div><div>${cortarDias(toExpiracy(expDay(e.symbol)))}</div><div> ${cortarPrecio(TNA(e))}</div></div >`
      ul.innerHTML += template;
 }   
 

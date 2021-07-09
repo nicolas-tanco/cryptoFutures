@@ -4,28 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <title>Crypto Data</title>
 </head>
 <body>
-    <ul>
-        
-    </ul>
+<header>
+    <h1>Crypto Data</h1>
+    <nav><ul><li>Spot Data</li>
+    <li>Coin M Data</li>
+    <li>USDT M Data</li>
+    <li>Savings</li></ul></nav>
+</header>
+<main>
+ <div class="container">
+
+       <div id="tabla">
+       <div class="columna"><div>Symbol</div><div>Price</div><div>Index</div><div>Tasa realizada</div><div>Dias</div><div>TNA</div></div >
+       </div>
     
- <div>
-    <table id="tabla">
-        
-       <tr><td>Symbol</td><td>Price</td><td>Index</td><td>Tasa realizada</td><td>Dias</td><td>TNA</td></tr>
-    </table>
-</div>
+<div class="botones">
 <button id="refresh">Refresh</button>
 <button id="TNA">TNA sort</button>
 <button id="tasaRealizada">Tasa realizada sort</button>
+<button id="nameSort">Name sort</button>
+</div>
 <form action="" method="get" name="formRequest">
     <label for="request">Poner symbol (todo en mayuscula, solo letras. Por ejemplo: "BTCUSDT")</label>
     <input type="text" name="request">
     <button type="submit">Buscar</button>
 </form>
 <p id="resultadoBusqueda"></p>
+</div>
+</main>
+<footer><p>Made by Nicolas Tanco</p></footer>
 <script src="./binance.js"></script>
 </body>
 </html>

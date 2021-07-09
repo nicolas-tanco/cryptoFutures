@@ -1,0 +1,56 @@
+*{
+        margin:0;
+        padding: 0;
+        box-sizing: content-box;
+}
+
+h1{
+    text-align: center;
+    padding: 40px;
+}
+
+ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    list-style-type: none;
+    margin-bottom: 120px;
+}
+
+.container{
+
+    padding-left: 600px;
+    max-width: 600px;
+}
+
+.columna{
+    display: flex;
+    width: 100%
+}
+
+
+.columna div{
+    width: 100px;
+    text-align: center;
+    
+    border :solid;
+
+}
+
+div.columna div{
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.botones{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+footer{
+    text-align: center;
+    margin-top: 30px;
+    
+}
