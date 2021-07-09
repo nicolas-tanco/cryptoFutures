@@ -14,6 +14,69 @@ const coins = [
   "XRPUSDT",
 ];
 
+window.onload = () => {
+
+    fetch(epFuturosCoin + "/dapi/v1/premiumIndex")
+      .then((result1) => {
+        return result1.json()
+      })
+      .then( res => res.filter(e=>e.nextFundingTime==0).sort((a,b)=>{
+        if(a.symbol>b.symbol) return 1
+        else return -1
+      }).forEach(e=>{
+        agregarEnTemplate(e)
+        subirDatos(e)
+      }))
+
+
+    document.querySelector("#refresh").addEventListener("click", ()=> {
+      location.href="./index.html"
+    })
+
+    document.querySelector("#TNA").addEventListener("click",()=>{
+      datos.sort((a,b)=>{
+        if(a[5]>b[5]) return -1
+        else return 1
+      })
+      const tr= document.querySelectorAll("tr")
+      let trDatos=[]
+      for(i=1;i<tr.length;i++){
+        trDatos.push(tr.item(i))
+      }
+      trDatos.forEach((e,i)=>e.innerHTML= `<td>${datos[i][0]}</td><td> ${datos[i][1]}</td><td>${datos[i][2]}</td><td> ${datos[i][3]}</td><td> ${datos[i][4]}</td><td> ${datos[i][5]}</td>`)
+    })
+
+    document.querySelector("#tasaRealizada").addEventListener("click",()=>{
+      datos.sort((a,b)=>{
+        if(a[3]>b[3]) return -1
+        else return 1
+      })
+      const tr= document.querySelectorAll("tr")
+      let trDatos=[]
+      for(i=1;i<tr.length;i++){
+        trDatos.push(tr.item(i))
+      }
+      trDatos.forEach((e,i)=>e.innerHTML= `<td>${datos[i][0]}</td><td> ${datos[i][1]}</td><td>${datos[i][2]}</td><td> ${datos[i][3]}</td><td> ${datos[i][4]}</td><td> ${datos[i][5]}</td>`)
+    })
+
+    document.forms.formRequest.addEventListener("submit", (e)=>{
+      e.preventDefault()
+      let rr=document.forms.formRequest
+      if(isUpperCase(rr.request.value) && rr.request.value.length>=6 && rr.request.value.length<=7){
+        fetch(endPointPrincipal+"/api/v3/ticker/price?symbol="+rr.request.value)
+          .then(result=>result.json())
+          .then((data)=>{
+            document.querySelector("#resultadoBusqueda").innerHTML=`${data.symbol}          ${data.price}`
+          })
+          .catch(error=>document.querySelector("#resultadoBusqueda").innerHTML=`${error}`)
+      }else{
+        document.querySelector("#resultadoBusqueda").innerHTML=`Introduci un valor correcto`
+      }
+
+    })
+
+}
+
 const datos = []
 
 const agregarEnTemplate = (e,i) => {
@@ -60,51 +123,9 @@ function TNA(e){
   return (Math.pow(e.markPrice/e.indexPrice, 365/toExpiracy(expDay(e.symbol)))-1)*100
 }
 
-window.onload = () => {
- 
-
-  
-    fetch(epFuturosCoin + "/dapi/v1/premiumIndex")
-      .then((result1) => {
-        return result1.json()
-      })
-      .then( res => res.filter(e=>e.nextFundingTime==0).sort((a,b)=>{
-        if(a.symbol>b.symbol) return 1
-        else return -1
-      }).forEach(e=>{
-        agregarEnTemplate(e)
-        subirDatos(e)
-      }))
-
-
-    document.querySelector("#refresh").addEventListener("click", ()=> {
-      location.href="./index.html"
-    })
-
-    document.querySelector("#TNA").addEventListener("click",()=>{
-      datos.sort((a,b)=>{
-        if(a[5]>b[5]) return -1
-        else return 1
-      })
-      const tr= document.querySelectorAll("tr")
-      let trDatos=[]
-      for(i=1;i<tr.length;i++){
-        trDatos.push(tr.item(i))
-      }
-      trDatos.forEach((e,i)=>e.innerHTML= `<td>${datos[i][0]}</td><td> ${datos[i][1]}</td><td>${datos[i][2]}</td><td> ${datos[i][3]}</td><td> ${datos[i][4]}</td><td> ${datos[i][5]}</td>`)
-    })
-
-    document.querySelector("#tasaRealizada").addEventListener("click",()=>{
-      datos.sort((a,b)=>{
-        if(a[3]>b[3]) return -1
-        else return 1
-      })
-      const tr= document.querySelectorAll("tr")
-      let trDatos=[]
-      for(i=1;i<tr.length;i++){
-        trDatos.push(tr.item(i))
-      }
-      trDatos.forEach((e,i)=>e.innerHTML= `<td>${datos[i][0]}</td><td> ${datos[i][1]}</td><td>${datos[i][2]}</td><td> ${datos[i][3]}</td><td> ${datos[i][4]}</td><td> ${datos[i][5]}</td>`)
-    })
-
+function isUpperCase(str){
+  for(i=0; i<str.length;i++){
+    if(str[i]!=str[i].toUpperCase()) return false
+  }
+  return true
 }
