@@ -18,6 +18,8 @@ const coins = [
   "SHIBUSDT"
 ];
 
+const datos = []
+
 window.onload = () => {
     coins.forEach(e=>{
         fetch(endPointPrincipal+urlBook+e)
@@ -56,6 +58,19 @@ window.onload = () => {
           ).innerHTML = `Introduci un valor correcto`;
         }
       })
+
+      document.querySelector("#refresh").addEventListener("click", ()=>{
+        document.querySelector("#tabla").innerHTML=`<div class="columna"><div>Symbol</div><div>Ask Price</div><div>Bid Price</div></div>`
+        coins.forEach(e=>{
+          fetch(endPointPrincipal+urlBook+e)
+              .then(result => result.json())
+              .then(data=>{
+                  agregarEnTemplate(data)
+              })
+      })
+      })
+
+    
 }
 
 const agregarEnTemplate = (e, i) => {

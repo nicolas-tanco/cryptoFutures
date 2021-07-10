@@ -27,6 +27,12 @@ ul{
     max-width: 600px;
 }
 
+.container1{
+
+    padding-left: 800px;
+    max-width: 600px;
+}
+
 .columna{
     display: flex;
     width: 100%

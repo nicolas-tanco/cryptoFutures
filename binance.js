@@ -33,8 +33,32 @@ window.onload = () => {
     );
 
   document.querySelector("#refresh").addEventListener("click", () => {
-    location.href = "./index.html";
-  });
+    fetch(epFuturosCoin + "/dapi/v1/premiumIndex")
+    .then((result1) => {
+      return result1.json();
+    }).then((res) =>{
+      res.filter((e) => e.nextFundingTime == 0).forEach(e=>{
+      let l = datos.findIndex(e1=>e1[0]==e.symbol)
+      
+      datos[l][1] = cortarPrecio(e.markPrice)
+      datos[l][2] = cortarPrecio(e.indexPrice)
+     datos[l][3] = tasaDeinteres(e)
+     datos[l][4] = cortarDias(toExpiracy(expDay(e.symbol)))
+      datos[l][5] = cortarPrecio(TNA(e))
+    })
+    const tr = document.querySelectorAll("div.columna");
+    let trDatos = [];
+    for (i = 1; i < tr.length; i++) {
+      trDatos.push(tr.item(i));
+    }
+    trDatos.forEach(
+      (e, i) =>
+        (e.innerHTML = `<div>${arreglarNombre(datos[i][0])}</div><div>${datos[i][1]}</div><div>${datos[i][2]}</div><div>${datos[i][3]}</div><div>${datos[i][4]}</div><div>${datos[i][5]}</div>`)
+    )
+
+  })})
+
+
 
   document.querySelector("#TNA").addEventListener("click", () => {
     datos.sort((a, b) => -(a[5]-b[5]));
@@ -92,6 +116,24 @@ window.onload = () => {
       ).innerHTML = `Introduci un valor correcto`;
     }
   });
+
+  document.querySelector("#nameSort").addEventListener("click", ()=>{
+    datos.sort((a, b) => {
+      if (a[0] > b[0]) return 1;
+      else return -1;
+    })
+    const tr = document.querySelectorAll("div.columna");
+    let trDatos = [];
+    for (i = 1; i < tr.length; i++) {
+      trDatos.push(tr.item(i));
+    }
+   
+    trDatos.forEach(
+      (e, i) =>
+        (e.innerHTML = `<div>${arreglarNombre(datos[i][0])}</div><div>${datos[i][1]}</div><div>${datos[i][2]}</div><div>${datos[i][3]}</div><div>${datos[i][4]}</div><div>${datos[i][5]}</div>`)
+    )
+
+  })
 };
 
 const datos = [];
